@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\IssueController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ScanController;
 
@@ -35,10 +36,16 @@ Route::middleware(['auth'])->group(function () {
 
 
 Route::middleware(['auth'])->group(function () {
-    // Trigger a scan for a project
     Route::post('/projects/{project}/scan', [ScanController::class, 'store'])
         ->name('projects.scan.store');
 });
+
+
+Route::middleware(['auth'])->group(function () {
+    Route::post('/scans/{scan}/issues', [IssueController::class, 'store'])
+        ->name('scans.issues.store');
+});
+
 
 
 require __DIR__ . '/auth.php';
